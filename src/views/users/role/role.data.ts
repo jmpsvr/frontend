@@ -36,6 +36,9 @@ export const formSchema: FormSchema[] = [
     label: '角色名称',
     required: true,
     component: 'Input',
+    dynamicDisabled: ({ values }) => {
+      return !!values.name;
+    },
   },
   {
     label: '备注',
@@ -44,7 +47,7 @@ export const formSchema: FormSchema[] = [
   },
   {
     label: ' ',
-    field: 'grant',
+    field: 'permission',
     slot: 'menu',
     component: 'Input',
   },

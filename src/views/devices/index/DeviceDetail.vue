@@ -1,6 +1,6 @@
 <template>
   <PageWrapper
-    :title="`设备` + deviceId + `的资料`"
+    :title="`设备` + deviceId"
     content="这是用户资料详情页面。本页面仅用于演示相同路由在tab中打开多个页面并且显示不同的数据"
     contentBackground
     @back="goBack"
@@ -17,8 +17,16 @@
     </template>
     <div class="pt-4 m-4 desc-wrap">
       <template v-if="currentKey == 'detail'">
-        <div v-for="i in device?.var" :key="i">{{ i.name }} : {{ i.value }}</div>
-        <a-button v-for="i in device?.action" :key="i">{{ i.name }}</a-button>
+        <!-- Common Device -->
+        <div v-if="device?.type === 0">
+          <div v-for="i in device?.var" :key="i">{{ i.name }} : {{ i.value }}</div>
+          <span v-for="i in device?.action" :key="i">
+            <a-button>{{ i.name }}</a-button>
+            &nbsp;
+          </span>
+        </div>
+        <!-- Onvif Device -->
+        <div v-if="device?.type === 1"> Camera Here </div>
       </template>
       <template v-if="currentKey == 'logs'">
         <div v-for="i in 10" :key="i">这是用户{{ deviceId }}操作日志Tab</div>

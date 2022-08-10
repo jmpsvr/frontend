@@ -23,6 +23,12 @@ export interface UserInfo {
   remark: string;
 }
 
+export interface RoleInfo {
+  name: string;
+  permission: JSON;
+  remark: string;
+}
+
 export interface UserListItem {
   id: number;
   name: string;

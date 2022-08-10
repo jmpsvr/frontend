@@ -8,6 +8,7 @@ import {
   UserInfo,
   MenuParams,
   MenuListGetResultModel,
+  RoleInfo,
 } from './model/systemModel';
 import { defHttp } from '/@/utils/http/axios';
 
@@ -19,6 +20,7 @@ enum Api {
   RolePageList = '/user/getRoleListByPage',
   GetAllRoleList = '/user/getAllRoleList',
   MenuList = '/user/getMenuList',
+  RoleInfo = '/user/setRoleInfo',
 }
 
 export const getUserList = (params: UserParams) =>
@@ -40,3 +42,5 @@ export const isUserExist = (user: string) =>
 
 export const getMenuList = (params?: MenuParams) =>
   defHttp.get<MenuListGetResultModel>({ url: Api.MenuList, params });
+
+export const setRoleInfo = (params: RoleInfo) => defHttp.post({ url: Api.RoleInfo, params });
