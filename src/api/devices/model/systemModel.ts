@@ -19,6 +19,11 @@ export type AreaParams = {
   remark?: string;
 };
 
+export type MQCmdParams = {
+  id: number;
+  cmd: string;
+};
+
 export interface DeviceListItem {
   mac: string;
   name: string;

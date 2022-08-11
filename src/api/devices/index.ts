@@ -5,6 +5,7 @@ import {
   AreaListItem,
   AreaListGetResultModel,
   DeviceDetail,
+  MQCmdParams,
 } from './model/systemModel';
 import { defHttp } from '/@/utils/http/axios';
 
@@ -14,6 +15,7 @@ enum Api {
   TypeList = '/device/getTypeList',
   SetDeviceInfo = '/device/setDeviceInfo',
   DeviceDetail = '/device/getDeviceDetail',
+  MQCmd = '/device/sendMQCmd',
 }
 
 export const getDeviceList = (params: DeviceParams) =>
@@ -29,3 +31,5 @@ export const setDeviceInfo = (params: DeviceParams) =>
 
 export const getDeviceDetail = (params: DeviceId) =>
   defHttp.get<DeviceDetail>({ url: Api.DeviceDetail, params });
+
+export const sendMQCmd = (params: MQCmdParams) => defHttp.post({ url: Api.MQCmd, params });

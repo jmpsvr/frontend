@@ -1,7 +1,7 @@
 <template>
   <PageWrapper
     :title="`设备` + deviceId"
-    content="这是用户资料详情页面。本页面仅用于演示相同路由在tab中打开多个页面并且显示不同的数据"
+    content="这是设备信息界面，当然UI还没设计完善，仅简略展示功能"
     contentBackground
     @back="goBack"
   >
@@ -21,7 +21,7 @@
         <div v-if="device?.type === 0">
           <div v-for="i in device?.var" :key="i">{{ i.name }} : {{ i.value }}</div>
           <span v-for="i in device?.action" :key="i">
-            <a-button>{{ i.name }}</a-button>
+            <a-button @click="sendCmd(i.cmd)" :id="i.cmd">{{ i.name }}</a-button>
             &nbsp;
           </span>
         </div>
@@ -42,7 +42,8 @@
   import { useGo } from '/@/hooks/web/usePage';
   import { useTabs } from '/@/hooks/web/useTabs';
   import { Tabs } from 'ant-design-vue';
-  import { getDeviceDetail } from '/@/api/devices';
+  import { getDeviceDetail, sendMQCmd } from '/@/api/devices';
+
   export default defineComponent({
     name: 'DeviceDetail',
     components: { PageWrapper, ATabs: Tabs, ATabPane: Tabs.TabPane },
@@ -56,21 +57,27 @@
       getDeviceDetail({ id: deviceId.value }).then((data) => {
         device.value = data;
       });
+      // 每10秒刷新一次
+      setInterval(() => {
+        getDeviceDetail({ id: deviceId.value }).then((data) => {
+          device.value = data;
+        });
+      }, 10 * 1000);
       const { setTitle } = useTabs();
-      // TODO
-      // 本页代码仅作演示，实际应当通过userId从接口获得用户的相关资料
-
-      // 设置Tab的标题（不会影响页面标题）
       setTitle('详情：设备' + deviceId.value);
 
       // 页面左侧点击返回链接时的操作
-      function goBack() {
+      const goBack = () => {
         // 本例的效果时点击返回始终跳转到账号列表页，实际应用时可返回上一页
         go('/devices/list');
-      }
-      return { device, deviceId, currentKey, goBack };
+      };
+      const sendCmd = (cmd) => {
+        sendMQCmd({
+          id: deviceId.value,
+          cmd,
+        });
+      };
+      return { device, deviceId, currentKey, goBack, sendCmd };
     },
   });
 </script>
-
-<style></style>
