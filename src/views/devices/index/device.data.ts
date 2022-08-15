@@ -17,7 +17,7 @@ export const columns: BasicColumn[] = [
     title: '设备类型',
     dataIndex: 'type',
     customRender: ({ record }) => {
-      const typeList = ['Common', 'Onvif'];
+      const typeList = ['Common', 'RTSP'];
       return typeList[record.type];
     },
     width: 120,

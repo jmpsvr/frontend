@@ -1,10 +1,5 @@
 <template>
-  <PageWrapper
-    :title="`设备` + deviceId"
-    content="这是设备信息界面，当然UI还没设计完善，仅简略展示功能"
-    contentBackground
-    @back="goBack"
-  >
+  <PageWrapper :title="device?.name" :content="device?.remark" contentBackground @back="goBack">
     <!-- <template #extra>
       <a-button type="primary" danger> 禁用账号 </a-button>
       <a-button type="primary"> 修改密码 </a-button>
@@ -25,11 +20,16 @@
             &nbsp;
           </span>
         </div>
-        <!-- Onvif Device -->
-        <div v-if="device?.type === 1"> Camera Here </div>
+        <!-- RTSP Device -->
+        <div v-if="device?.type === 1">
+          <iframe
+            :src="'/api/v1/rtsp/' + deviceId + ',' + token"
+            style="width: 100%; height: 40vw"
+          ></iframe>
+        </div>
       </template>
       <template v-if="currentKey == 'logs'">
-        <div v-for="i in 10" :key="i">这是用户{{ deviceId }}操作日志Tab</div>
+        <div v-for="i in 10" :key="i">这是设备{{ deviceId }}操作日志Tab</div>
       </template>
     </div>
   </PageWrapper>
@@ -43,6 +43,7 @@
   import { useTabs } from '/@/hooks/web/useTabs';
   import { Tabs } from 'ant-design-vue';
   import { getDeviceDetail, sendMQCmd } from '/@/api/devices';
+  import { getToken } from '/@/utils/auth';
 
   export default defineComponent({
     name: 'DeviceDetail',
@@ -50,21 +51,24 @@
     setup() {
       const route = useRoute();
       const go = useGo();
+      const { setTitle } = useTabs();
+
       // 此处可以得到用户ID
       const deviceId = ref(route.params?.id);
       const currentKey = ref('detail');
       const device = ref(null);
       getDeviceDetail({ id: deviceId.value }).then((data) => {
         device.value = data;
+        setTitle(device.value?.name);
+        // 每10秒刷新一次
+        if (device.value.type === 0) {
+          setInterval(() => {
+            getDeviceDetail({ id: deviceId.value }).then((data) => {
+              device.value = data;
+            });
+          }, 10 * 1000);
+        }
       });
-      // 每10秒刷新一次
-      setInterval(() => {
-        getDeviceDetail({ id: deviceId.value }).then((data) => {
-          device.value = data;
-        });
-      }, 10 * 1000);
-      const { setTitle } = useTabs();
-      setTitle('详情：设备' + deviceId.value);
 
       // 页面左侧点击返回链接时的操作
       const goBack = () => {
@@ -77,7 +81,8 @@
           cmd,
         });
       };
-      return { device, deviceId, currentKey, goBack, sendCmd };
+      const token = getToken();
+      return { device, deviceId, currentKey, goBack, sendCmd, token };
     },
   });
 </script>
