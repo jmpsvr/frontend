@@ -7,22 +7,22 @@ const settings: AppRouteModule = {
   path: '/settings',
   name: 'Settings',
   component: LAYOUT,
-  redirect: '/settings/index',
+  redirect: '/settings/changePassword',
   meta: {
     orderNo: 100,
     icon: 'ion:settings-outline',
     title: t('sys.settings.title'),
   },
   children: [
-    {
-      path: 'index',
-      name: 'SettingsIndex',
-      meta: {
-        title: t('sys.settings.config'),
-        ignoreKeepAlive: false,
-      },
-      component: () => import('/@/views/settings/index.vue'),
-    },
+    // {
+    //   path: 'index',
+    //   name: 'SettingsIndex',
+    //   meta: {
+    //     title: t('sys.settings.config'),
+    //     ignoreKeepAlive: false,
+    //   },
+    //   component: () => import('/@/views/settings/index.vue'),
+    // },
     {
       path: 'changePassword',
       name: 'ChangePassword',

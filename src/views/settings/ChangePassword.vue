@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper title="修改当前用户密码" content="修改成功后会自动退出当前登录！">
+  <PageWrapper title="修改密码" content="">
     <div class="py-8 bg-white flex flex-col justify-center items-center">
       <BasicForm @register="register" />
       <div class="flex justify-center">
@@ -13,8 +13,13 @@
   import { defineComponent } from 'vue';
   import { PageWrapper } from '/@/components/Page';
   import { BasicForm, useForm } from '/@/components/Form';
+  import { changePassword } from '/@/api/sys/user';
 
   import { formSchema } from './pwd.data';
+  import { useMessage } from '/@/hooks/web/useMessage';
+  // import { useRouter } from 'vue-router';
+  // import { PageEnum } from '/@/enums/pageEnum';
+
   export default defineComponent({
     name: 'ChangePassword',
     components: { BasicForm, PageWrapper },
@@ -32,10 +37,11 @@
           const values = await validate();
           const { passwordOld, passwordNew } = values;
 
-          // TODO custom api
-          console.log(passwordOld, passwordNew);
-          // const { router } = useRouter();
-          // router.push(pageEnum.BASE_LOGIN);
+          await changePassword({ passwordOld, passwordNew });
+          const { createMessage } = useMessage();
+          createMessage.success('修改密码成功');
+          // const router = useRouter();
+          // router.push(PageEnum.BASE_HOME);
         } catch (error) {}
       }
 
@@ -43,3 +49,5 @@
     },
   });
 </script>
+
+function useToast() { throw new Error('Function not implemented.'); }

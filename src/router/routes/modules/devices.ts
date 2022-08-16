@@ -2,6 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
 import { t } from '/@/hooks/web/useI18n';
+import { RoleEnum } from '/@/enums/roleEnum';
 
 const devices: AppRouteModule = {
   path: '/devices',
@@ -41,8 +42,19 @@ const devices: AppRouteModule = {
       meta: {
         title: t('routes.devices.area'),
         ignoreKeepAlive: true,
+        roles: [RoleEnum.ADMIN],
       },
       component: () => import('/@/views/devices/area/index.vue'),
+    },
+    {
+      path: 'action',
+      name: 'ActionManagement',
+      meta: {
+        title: t('routes.devices.action'),
+        ignoreKeepAlive: true,
+        roles: [RoleEnum.ADMIN],
+      },
+      component: () => import('/@/views/devices/action/index.vue'),
     },
   ],
 };

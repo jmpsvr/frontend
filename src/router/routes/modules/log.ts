@@ -2,6 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
 import { t } from '/@/hooks/web/useI18n';
+import { RoleEnum } from '/@/enums/roleEnum';
 
 const log: AppRouteModule = {
   path: '/log',
@@ -13,6 +14,7 @@ const log: AppRouteModule = {
     icon: 'ion:timer-outline',
     title: t('routes.log.moduleName'),
     orderNo: 50,
+    roles: [RoleEnum.ADMIN],
   },
   children: [
     {

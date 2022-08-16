@@ -40,6 +40,15 @@ export interface AreaListItem {
   remark: string;
 }
 
+export interface ActionListItem {
+  id: string;
+  name: string;
+  condition: JSON;
+  trigger: JSON;
+  createTime: string;
+  remark: string;
+}
+
 export interface DeviceDetail {
   var: Array<Object>;
   action: Array<Object>;
@@ -51,3 +60,5 @@ export interface DeviceDetail {
 export type DeviceListGetResultModel = BasicFetchResult<DeviceListItem>;
 
 export type AreaListGetResultModel = BasicFetchResult<AreaListItem>;
+
+export type ActionListGetResultModel = BasicFetchResult<ActionListItem>;

@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增区域 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增动作 </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -26,28 +26,29 @@
         </template>
       </template>
     </BasicTable>
-    <AreaModal @register="registerModal" @success="handleSuccess" />
+    <ActionModal @register="registerModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getAreaList } from '/@/api/devices/index';
+  import { getActionList } from '/@/api/devices/index';
 
   import { useModal } from '/@/components/Modal';
-  import AreaModal from './AreaModal.vue';
+  import ActionModal from './ActionModal.vue';
 
-  import { columns, searchFormSchema } from './area.data';
+  import { columns, searchFormSchema } from './action.data';
 
   export default defineComponent({
-    name: 'AreaManagement',
-    components: { BasicTable, AreaModal, TableAction },
+    name: 'ActionManagement',
+    components: { BasicTable, ActionModal, TableAction },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
-        title: '区域列表',
-        api: getAreaList,
+        title: '动作列表',
+        api: getActionList,
+        rowKey: 'id',
         columns,
         formConfig: {
           labelWidth: 120,
