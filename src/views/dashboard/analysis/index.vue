@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <GrowCard :loading="loading" class="enter-y" />
+    <GrowCard :loading="loading" class="enter-y" :analysis="analysis" />
     <SiteAnalysis class="!my-4 enter-y" :loading="loading" />
     <div class="md:flex enter-y">
       <VisitRadar class="md:w-1/3 w-full" :loading="loading" />
@@ -16,10 +16,21 @@
   import VisitSource from './components/VisitSource.vue';
   import VisitRadar from './components/VisitRadar.vue';
   import SalesProductPie from './components/SalesProductPie.vue';
+  import { getAnalysis } from '/@/api/sys/analysis';
 
   const loading = ref(true);
+  const analysis = ref({});
 
-  setTimeout(() => {
-    loading.value = false;
-  }, 1500);
+  // setTimeout(() => {
+  //   loading.value = false;
+  // }, 1500);
+
+  getAnalysis()
+    .then((res) => {
+      analysis.value = res;
+      loading.value = false;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 </script>

@@ -1,5 +1,5 @@
 export default {
-  footer: { onlinePreview: 'Preview', onlineDocument: 'Document' },
+  footer: { onlinePreview: 'Official Website', onlineDocument: 'Document' },
   header: {
     // user dropdown
     dropdownItemDoc: 'Document',

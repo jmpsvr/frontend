@@ -8,6 +8,8 @@ import {
   MQCmdParams,
   ActionListItem,
   ActionListGetResultModel,
+  NoticeListItem,
+  NoticeListGetResultModel,
 } from './model/systemModel';
 import { defHttp } from '/@/utils/http/axios';
 
@@ -20,6 +22,7 @@ enum Api {
   MQCmd = '/device/sendMQCmd',
   ActionList = '/device/getActionList',
   SetActionInfo = '/device/setActionInfo',
+  NoticeList = '/device/getNoticeList',
 }
 
 export const getDeviceList = (params: DeviceParams) =>
@@ -43,3 +46,6 @@ export const getActionList = (params?: ActionListItem) =>
 
 export const setActionInfo = (params?: ActionListItem) =>
   defHttp.post({ url: Api.SetActionInfo, params });
+
+export const getNoticeList = (params?: NoticeListItem) =>
+  defHttp.get<NoticeListGetResultModel>({ url: Api.NoticeList, params });

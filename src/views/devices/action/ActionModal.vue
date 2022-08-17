@@ -41,14 +41,14 @@
       });
 
       const getTitle = computed(() =>
-        !unref(isUpdate) ? t('routes.devices.new_area') : t('routes.devices.edit_area'),
+        !unref(isUpdate) ? t('routes.devices.new_action') : t('routes.devices.edit_action'),
       );
 
       async function handleSubmit() {
         try {
           const values = await validate();
           setModalProps({ confirmLoading: true });
-          setActionInfo(values);
+          await setActionInfo(values);
           closeModal();
           emit('success');
         } finally {

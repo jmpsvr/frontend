@@ -18,7 +18,7 @@ import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 
 import { filter } from '/@/utils/helper/treeHelper';
 
-import { getMenuList } from '/@/api/sys/menu';
+import { getMenuList } from '../../api/sys/menu';
 import { getPermCode } from '/@/api/sys/user';
 
 import { useMessage } from '/@/hooks/web/useMessage';
@@ -141,7 +141,7 @@ export const usePermissionStore = defineStore({
        * */
       const patchHomeAffix = (routes: AppRouteRecordRaw[]) => {
         if (!routes || routes.length === 0) return;
-        let homePath: string = userStore.getUserInfo.homePath || PageEnum.BASE_HOME;
+        let homePath: string = PageEnum.BASE_HOME;
 
         function patcher(routes: AppRouteRecordRaw[], parentPath = '') {
           if (parentPath) parentPath = parentPath + '/';

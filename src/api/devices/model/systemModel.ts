@@ -49,6 +49,15 @@ export interface ActionListItem {
   remark: string;
 }
 
+export interface NoticeListItem {
+  uuid: string;
+  event: string;
+  did: number;
+  finish: boolean;
+  icon: string;
+  createTime: string;
+}
+
 export interface DeviceDetail {
   var: Array<Object>;
   action: Array<Object>;
@@ -62,3 +71,5 @@ export type DeviceListGetResultModel = BasicFetchResult<DeviceListItem>;
 export type AreaListGetResultModel = BasicFetchResult<AreaListItem>;
 
 export type ActionListGetResultModel = BasicFetchResult<ActionListItem>;
+
+export type NoticeListGetResultModel = BasicFetchResult<NoticeListItem>;
