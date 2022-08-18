@@ -107,4 +107,8 @@ export default {
     config: 'Configuration',
     password: 'Change Password',
   },
+  iframe: {
+    index: 'Help',
+    doc: 'Documentation',
+  },
 };

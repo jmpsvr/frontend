@@ -54,6 +54,10 @@
         }
         isUpdate.value = !!data?.isUpdate;
 
+        if (data.record) {
+          data.record.isUpdate = true;
+        }
+
         if (unref(isUpdate)) {
           setFieldsValue({
             ...data.record,

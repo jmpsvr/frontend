@@ -12,7 +12,7 @@ const iframe: AppRouteModule = {
   meta: {
     orderNo: 1000,
     icon: 'ion:tv-outline',
-    title: t('routes.demo.iframe.frame'),
+    title: t('sys.iframe.index'),
   },
 
   children: [
@@ -21,27 +21,27 @@ const iframe: AppRouteModule = {
       name: 'Doc',
       component: IFrame,
       meta: {
-        frameSrc: 'https://vvbin.cn/doc-next/',
-        title: t('routes.demo.iframe.doc'),
+        frameSrc: 'https://docs.jmpsvr.com',
+        title: t('sys.iframe.doc'),
       },
     },
-    {
-      path: 'antv',
-      name: 'Antv',
-      component: IFrame,
-      meta: {
-        frameSrc: 'https://2x.antdv.com/docs/vue/introduce-cn/',
-        title: t('routes.demo.iframe.antv'),
-      },
-    },
-    {
-      path: 'https://vvbin.cn/doc-next/',
-      name: 'DocExternal',
-      component: IFrame,
-      meta: {
-        title: t('routes.demo.iframe.docExternal'),
-      },
-    },
+    // {
+    //   path: 'antv',
+    //   name: 'Antv',
+    //   component: IFrame,
+    //   meta: {
+    //     frameSrc: 'https://2x.antdv.com/docs/vue/introduce-cn/',
+    //     title: t('routes.demo.iframe.antv'),
+    //   },
+    // },
+    // {
+    //   path: 'https://vvbin.cn/doc-next/',
+    //   name: 'DocExternal',
+    //   component: IFrame,
+    //   meta: {
+    //     title: t('routes.demo.iframe.docExternal'),
+    //   },
+    // },
   ],
 };
 

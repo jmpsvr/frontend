@@ -9,7 +9,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './area.data';
 
-  import { getAreaList } from '/@/api/devices/index';
+  import { getAreaList, setArea } from '/@/api/devices/index';
 
   import { useI18n } from '/@/hooks/web/useI18n';
   const { t } = useI18n();
@@ -53,8 +53,7 @@
         try {
           const values = await validate();
           setModalProps({ confirmLoading: true });
-          // TODO custom api
-          console.log(values);
+          await setArea(values);
           closeModal();
           emit('success');
         } finally {

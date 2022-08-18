@@ -21,6 +21,8 @@ enum Api {
   GetAllRoleList = '/user/getAllRoleList',
   MenuList = '/user/getMenuList',
   RoleInfo = '/user/setRoleInfo',
+  DeleteUser = '/user/deleteUser',
+  DeleteRole = '/user/deleteRole',
 }
 
 export const getUserList = (params: UserParams) =>
@@ -44,3 +46,7 @@ export const getMenuList = (params?: MenuParams) =>
   defHttp.get<MenuListGetResultModel>({ url: Api.MenuList, params });
 
 export const setRoleInfo = (params: RoleInfo) => defHttp.post({ url: Api.RoleInfo, params });
+
+export const deleteUser = (id: number) => defHttp.post({ url: Api.DeleteUser, params: { id } });
+
+export const deleteRole = (name: string) => defHttp.post({ url: Api.DeleteRole, params: { name } });

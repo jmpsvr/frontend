@@ -23,6 +23,10 @@ enum Api {
   ActionList = '/device/getActionList',
   SetActionInfo = '/device/setActionInfo',
   NoticeList = '/device/getNoticeList',
+  DeleteDevice = '/device/deleteDevice',
+  SetArea = '/device/setArea',
+  DeleteArea = '/device/deleteArea',
+  DeleteAction = '/device/deleteAction',
 }
 
 export const getDeviceList = (params: DeviceParams) =>
@@ -49,3 +53,11 @@ export const setActionInfo = (params?: ActionListItem) =>
 
 export const getNoticeList = (params?: NoticeListItem) =>
   defHttp.get<NoticeListGetResultModel>({ url: Api.NoticeList, params });
+
+export const deleteDevice = (id: number) => defHttp.post({ url: Api.DeleteDevice, params: { id } });
+
+export const setArea = (params: AreaListItem) => defHttp.post({ url: Api.SetArea, params });
+
+export const deleteArea = (id: number) => defHttp.post({ url: Api.DeleteArea, params: { id } });
+
+export const deleteAction = (id: number) => defHttp.post({ url: Api.DeleteAction, params: { id } });

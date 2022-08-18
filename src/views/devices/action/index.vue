@@ -33,7 +33,7 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getActionList } from '/@/api/devices/index';
+  import { deleteAction, getActionList } from '/@/api/devices/index';
 
   import { useModal } from '/@/components/Modal';
   import ActionModal from './ActionModal.vue';
@@ -84,7 +84,9 @@
       }
 
       function handleDelete(record: Recordable) {
-        console.log(record);
+        deleteAction(record.id).then(() => {
+          reload();
+        });
       }
 
       function handleSuccess() {

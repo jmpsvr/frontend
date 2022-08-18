@@ -101,4 +101,8 @@ export default {
     config: '配置',
     password: '修改密码',
   },
+  iframe: {
+    index: '帮助信息',
+    doc: '项目文档',
+  },
 };

@@ -32,12 +32,18 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
+    field: 'isUpdate',
+    label: 'isUpdate',
+    component: 'Input',
+    show: false,
+  },
+  {
     field: 'name',
     label: '角色名称',
     required: true,
     component: 'Input',
     dynamicDisabled: ({ values }) => {
-      return !!values.name;
+      return !!values.isUpdate;
     },
   },
   {

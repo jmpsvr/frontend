@@ -7,7 +7,7 @@
     <template #footer>
       <a-tabs default-active-key="detail" v-model:activeKey="currentKey">
         <a-tab-pane key="detail" tab="详细信息" />
-        <a-tab-pane key="logs" tab="操作日志" />
+        <!-- <a-tab-pane key="logs" tab="操作日志" /> -->
       </a-tabs>
     </template>
     <div class="pt-4 m-4 desc-wrap">
@@ -28,9 +28,9 @@
           ></iframe>
         </div>
       </template>
-      <template v-if="currentKey == 'logs'">
+      <!-- <template v-if="currentKey == 'logs'">
         <div v-for="i in 10" :key="i">这是设备{{ deviceId }}操作日志Tab</div>
-      </template>
+      </template> -->
     </div>
   </PageWrapper>
 </template>

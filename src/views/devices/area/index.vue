@@ -33,7 +33,7 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getAreaList } from '/@/api/devices/index';
+  import { deleteArea, getAreaList } from '/@/api/devices/index';
 
   import { useModal } from '/@/components/Modal';
   import AreaModal from './AreaModal.vue';
@@ -83,7 +83,9 @@
       }
 
       function handleDelete(record: Recordable) {
-        console.log(record);
+        deleteArea(record.id).then(() => {
+          reload();
+        });
       }
 
       function handleSuccess() {

@@ -3,9 +3,8 @@
     <template #headerContent>
       <div class="flex justify-between items-center">
         <span class="flex-1">
-          <a :href="GITHUB_URL" target="_blank">{{ name }}</a>
-          是一个基于Vue3.0、Vite、 Ant-Design-Vue 、TypeScript
-          的后台解决方案，目标是为中大型项目开发,提供现成的开箱解决方案及丰富的示例,原则上不会限制任何代码用于商用。
+          <a :href="GITHUB_URL" target="_blank">Jump Server</a>
+          本项目社区版基于GPL-3.0协议开源，如需商用，请联系作者获取授权。
         </span>
       </div>
     </template>
@@ -23,7 +22,7 @@
 
   const { pkg, lastBuildTime } = __APP_INFO__;
 
-  const { dependencies, devDependencies, name, version } = pkg;
+  const { dependencies, devDependencies, version } = pkg;
 
   const schema: DescItem[] = [];
   const devSchema: DescItem[] = [];
