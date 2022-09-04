@@ -7,6 +7,11 @@
     <template #footer>
       <a-tabs default-active-key="detail" v-model:activeKey="currentKey">
         <a-tab-pane key="detail" tab="详细信息" />
+        <a-tab-pane
+          key="location"
+          tab="设备位置"
+          v-if="device?.var?.filter((item) => item.key === 'coord')[0]?.value"
+        />
         <!-- <a-tab-pane key="logs" tab="操作日志" /> -->
       </a-tabs>
     </template>
@@ -27,6 +32,15 @@
             style="width: 100%; height: 40vw"
           ></iframe>
         </div>
+      </template>
+      <template v-if="currentKey == 'location'">
+        <iframe
+          :src="
+            'https://apis.map.qq.com/uri/v1/geocoder?coord=' +
+            device?.var?.filter((item) => item.key === 'coord')[0]?.value
+          "
+          style="width: 100%; height: 40vw"
+        ></iframe>
       </template>
       <!-- <template v-if="currentKey == 'logs'">
         <div v-for="i in 10" :key="i">这是设备{{ deviceId }}操作日志Tab</div>
