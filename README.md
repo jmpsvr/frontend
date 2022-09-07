@@ -7,15 +7,7 @@
 
 **English** | [中文](./README.zh-CN.md)
 
-## Introduction
-
-## Feature
-
-## Preview
-
-## Maintainer
-
-[@mmdjiji](https://github.com/mmdjiji)
+Please goto [jmpsvr/jmpsvr](https://github.com/jmpsvr/jmpsvr).
 
 ## License
 

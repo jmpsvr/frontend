@@ -5,17 +5,7 @@
   <br><br>
 </div>
 
-**中文** | [English](./README.md)
-
-## 简介
-
-## 特性
-
-## 预览
-
-## 维护者
-
-[@mmdjiji](https://github.com/mmdjiji)
+请移步 [jmpsvr/jmpsvr](https://github.com/jmpsvr/jmpsvr).
 
 ## License
 
