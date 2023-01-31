@@ -31,6 +31,14 @@ const dashboard: AppRouteModule = {
         title: t('routes.dashboard.workbench'),
       },
     },
+    {
+      path: 'cluster',
+      name: 'cluster',
+      component: () => import('/@/views/dashboard/cluster/index.vue'),
+      meta: {
+        title: t('routes.dashboard.cluster'),
+      },
+    },
   ],
 };
 
