@@ -12,12 +12,16 @@
       </a-menu>
     </template>
   </a-dropdown>
-  <div v-if="camera_id > 0">
-    <iframe
+  <!-- <div v-if="camera_id > 0"> -->
+  <div :id="'camera' + propsid">
+    <canvas :id="'canvas' + camerahash" style="width: 99%; height: 95%"></canvas>
+  </div>
+  <!-- deprecated method -->
+  <!-- <iframe
       :src="'/api/v1/rtsp/' + camera_id + ',' + token"
       style="width: 100%; height: 25vw"
-    ></iframe>
-  </div>
+    ></iframe> -->
+  <!-- </div> -->
 </template>
 
 <script>
@@ -32,12 +36,34 @@
   export default defineComponent({
     name: 'Selector',
     components: { AMenu: Menu, ADropdown: Dropdown, AMenuItem: Menu.Item, DownOutlined },
-    setup() {
-      const current = ref('选择摄像头');
+    props: {
+      id: Number,
+    },
+    setup(props) {
+      let tempCurrent = '';
       const devices = ref([]);
-      const camera_id = ref(0);
+      let tempCameraId = 0;
       const token = getToken();
-      return { devices, current, camera_id, token };
+      // eslint-disable-next-line vue/no-setup-props-destructure
+      const propsid = props.id;
+      const camerahash = propsid + '_' + Math.round(new Date().getTime() / 1000);
+      // this.addCamera(camerahash);
+      const cdefault = localStorage.getItem('cdefault' + props.id);
+      if (cdefault) {
+        const item = JSON.parse(cdefault);
+        tempCameraId = item?.id;
+        tempCurrent = item?.name;
+        setTimeout(() => {
+          loadPlayer({
+            url: `ws://${location.host}/api/v1/rtsp/stream/${tempCameraId}?jwt=${token}`,
+            canvas: document.getElementById('canvas' + camerahash),
+            videoBufferSize: 1024 * 1024 * 4,
+          });
+        }, 1000);
+      }
+      const current = ref(tempCurrent || '选择摄像头');
+      const camera_id = ref(tempCameraId);
+      return { devices, current, camera_id, token, propsid, camerahash };
     },
     created() {
       this.update();
@@ -56,10 +82,36 @@
           }
         });
       },
+      clearCamera() {
+        const list = document.getElementById('camera' + this.propsid);
+        while (list.hasChildNodes()) {
+          list.removeChild(list.firstChild);
+        }
+      },
+      addCamera(hash) {
+        const list = document.getElementById('camera' + this.propsid);
+        const li = document.createElement('canvas');
+        li.setAttribute('id', 'canvas' + hash);
+        li.setAttribute('style', 'width: 99%; height: 95%');
+        console.log(li);
+        list.appendChild(li);
+      },
       select(item) {
         console.log('select', item);
+        this.clearCamera();
+        this.camerahash = this.propsid + '_' + Math.round(new Date().getTime() / 1000);
+        this.addCamera(this.camerahash);
         this.camera_id = item?.id;
         this.current = item?.name;
+        localStorage.setItem('cdefault' + this.propsid, JSON.stringify(item));
+        setTimeout(() => {
+          // console.log(document.getElementById('canvas'));
+          loadPlayer({
+            url: `ws://${location.host}/api/v1/rtsp/stream/${this.camera_id}?jwt=${this.token}`,
+            canvas: document.getElementById('canvas' + this.camerahash),
+            videoBufferSize: 1024 * 1024 * 4,
+          });
+        }, 10);
       },
     },
   });

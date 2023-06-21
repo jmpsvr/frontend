@@ -39,7 +39,7 @@
         // hide the canvas until it's loaded and the correct size
         const originalDisplay = options.canvas.style.display;
         // eslint-disable-next-line no-param-reassign
-        options.canvas.style.display = 'none';
+        // options.canvas.style.display = 'none';
 
         let lastRx = Date.now(); // Date.now() is more efficient than performance.now()
 

@@ -27,10 +27,12 @@
         </div>
         <!-- RTSP Device -->
         <div v-if="device?.type === 1">
-          <iframe
+          <canvas id="canvas" style="width: 100%; height: 100%"></canvas>
+          <!-- deprecated method -->
+          <!-- <iframe
             :src="'/api/v1/rtsp/' + deviceId + ',' + token"
             style="width: 100%; height: 40vw"
-          ></iframe>
+          ></iframe> -->
         </div>
       </template>
       <template v-if="currentKey == 'location'">
@@ -66,6 +68,7 @@
       const route = useRoute();
       const go = useGo();
       const { setTitle } = useTabs();
+      const token = getToken();
 
       // 此处可以得到用户ID
       const deviceId = ref(route.params?.id);
@@ -74,13 +77,22 @@
       getDeviceDetail({ id: deviceId.value }).then((data) => {
         device.value = data;
         setTitle(device.value?.name);
-        // 每10秒刷新一次
         if (device.value.type === 0) {
+          // 每10秒刷新一次
           setInterval(() => {
             getDeviceDetail({ id: deviceId.value }).then((data) => {
               device.value = data;
             });
           }, 10 * 1000);
+        } else if (device.value.type === 1) {
+          setTimeout(() => {
+            // console.log(document.getElementById('canvas'));
+            loadPlayer({
+              url: `ws://${location.host}/api/v1/rtsp/stream/${deviceId.value}?jwt=${token}`,
+              canvas: document.getElementById('canvas'),
+              videoBufferSize: 1024 * 1024 * 4,
+            });
+          }, 10);
         }
       });
 
@@ -95,7 +107,7 @@
           cmd,
         });
       };
-      const token = getToken();
+
       return { device, deviceId, currentKey, goBack, sendCmd, token };
     },
   });

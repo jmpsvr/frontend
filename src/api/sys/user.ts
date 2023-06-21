@@ -10,6 +10,7 @@ enum Api {
   GetPermCode = '/getPermCode',
   TestRetry = '/testRetry',
   ChangePassword = '/sys/changePassword',
+  KeepAlive = '/sys/keepalive',
 }
 
 /**
@@ -25,6 +26,10 @@ export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') 
       errorMessageMode: mode,
     },
   );
+}
+
+export function keepalive() {
+  return defHttp.post({ url: Api.KeepAlive });
 }
 
 /**
